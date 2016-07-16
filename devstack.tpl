@@ -31,4 +31,5 @@ write_files:
     permissions: 0755
 
 runcmd:
+  - chage -d0 stack
   - su -l stack ./start.sh

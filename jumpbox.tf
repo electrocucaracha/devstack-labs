@@ -12,6 +12,12 @@ resource "openstack_compute_secgroup_v2" "jumpbox_secgroup" {
     ip_protocol = "tcp"
     cidr = "0.0.0.0/0"
   }
+  rule {
+    from_port = 80
+    to_port = 8080
+    ip_protocol = "tcp"
+    cidr = "0.0.0.0/0"
+  }
 }
 
 resource "openstack_compute_instance_v2" "jumpbox" {
@@ -28,6 +34,6 @@ resource "openstack_compute_instance_v2" "jumpbox" {
   }
 
   provisioner "local-exec" {
-    command = "echo \"ssh -o PreferredAuthentications=password -t osicer@${openstack_compute_floatingip_v2.floatingip.address} ssh stack@192.168.50.$1\" > ssh-devstack.sh"
+    command = "echo \"ssh -o PreferredAuthentications=password -L 6080:192.168.50.$1:6080 -L 8080:192.168.50.$1:80 -t osicer@${openstack_compute_floatingip_v2.floatingip.address} ssh stack@192.168.50.$1\" > ssh-devstack.sh"
   }
 }

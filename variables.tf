@@ -1,6 +1,10 @@
 variable "user_name" {}
 variable "password" {}
 
+variable "num_devstacks" {
+  default = 15
+}
+
 variable "tenant_name" {
   default = "osic-engineering"
 }

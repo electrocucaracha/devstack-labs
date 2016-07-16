@@ -16,10 +16,22 @@ resource "openstack_compute_secgroup_v2" "devstack_secgroup" {
     ip_protocol = "tcp"
     from_group_id = "${openstack_compute_secgroup_v2.jumpbox_secgroup.id}"
   }
+  rule {
+    from_port = 80
+    to_port = 80
+    ip_protocol = "tcp"
+    from_group_id = "${openstack_compute_secgroup_v2.jumpbox_secgroup.id}"
+  }
+  rule {
+    from_port = 6080
+    to_port = 6080
+    ip_protocol = "tcp"
+    from_group_id = "${openstack_compute_secgroup_v2.jumpbox_secgroup.id}"
+  }
 }
 
 resource "openstack_compute_instance_v2" "devstack" {
-  count = 30
+  count = "${var.num_devstacks}"
   name = "osic-devstack-${count.index + 1}"
   region = "${var.region}"
   image_name = "${var.image}"
