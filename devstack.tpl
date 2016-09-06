@@ -25,6 +25,8 @@ write_files:
         echo SERVICE_PASSWORD=${password} >> local.conf
         echo ENABLE_DEBUG_LOG_LEVEL=False >> local.conf
         echo ENABLED_SERVICES+=,q-svc,q-agt,q-dhcp,q-l3,q-meta >> local.conf
+        echo ENABLED_SERVICES+=,s-proxy,s-object,s-container,s-account  >> local.conf
+        echo SWIFT_HASH=swift >> local.conf
         echo disable_service n-net >> local.conf
         ./stack.sh
     path: /home/stack/start.sh
