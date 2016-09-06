@@ -1,8 +1,12 @@
 variable "user_name" {}
 variable "password" {}
 
+variable "num_jumpboxs" {
+  default = 3
+}
+
 variable "num_devstacks" {
-  default = 15
+  default = 5
 }
 
 variable "tenant_name" {
@@ -10,7 +14,7 @@ variable "tenant_name" {
 }
 
 variable "auth_url" {
-  default = "https://cloud1.osic.org:5000/v2.1"
+  default = "https://cloud1.osic.org:5000/v2.0"
 }
 
 variable "domain_name" {
@@ -26,7 +30,7 @@ variable "image" {
 }
 
 variable "flavor" {
-  default = "m2.medium"
+  default = "m2.large"
 }
 
 variable "ssh_key_file" {

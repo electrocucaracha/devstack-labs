@@ -1,9 +1,9 @@
-resource "template_file" "jumpbox_cloudinit" {
+data "template_file" "jumpbox_cloudinit" {
     template = "${file("jumpbox.tpl")}"
 }
 
 resource "openstack_compute_secgroup_v2" "jumpbox_secgroup" {
-  name = "jumpbox"
+  name = "osic-lab-jumpbox"
   region = "${var.region}"
   description = "Security group for accessing jumpbox from outside"
   rule {
@@ -21,19 +21,20 @@ resource "openstack_compute_secgroup_v2" "jumpbox_secgroup" {
 }
 
 resource "openstack_compute_instance_v2" "jumpbox" {
-  name = "osic-jumpbox"
+  count = "${var.num_jumpboxs}"
+  name = "osic-jumpbox-${count.index + 1}"
   region = "${var.region}"
   image_name = "${var.image}"
   flavor_name = "${var.flavor}"
   security_groups = [ "${openstack_compute_secgroup_v2.jumpbox_secgroup.name}" ]
   floating_ip = "${openstack_compute_floatingip_v2.floatingip.address}"
-  user_data = "${template_file.jumpbox_cloudinit.rendered}"
+  user_data = "${data.template_file.jumpbox_cloudinit.rendered}"
 
   network {
     uuid = "${openstack_networking_network_v2.private_network.id}"
   }
 
   provisioner "local-exec" {
-    command = "echo \"ssh -o PreferredAuthentications=password -L 6080:192.168.50.$1:6080 -L 8080:192.168.50.$1:80 -t osicer@${openstack_compute_floatingip_v2.floatingip.address} ssh stack@192.168.50.$1\" > ssh-devstack.sh"
+    command = "echo \"ssh -o PreferredAuthentications=password -L 6080:192.168.50.$1:6080 -L 8080:192.168.50.$1:80 -t osicer@${openstack_compute_floatingip_v2.floatingip.address} ssh stack@192.168.50.$1\" > ssh_${name}.sh"
   }
 }
