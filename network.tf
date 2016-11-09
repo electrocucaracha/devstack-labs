@@ -1,34 +1,29 @@
-resource "openstack_networking_network_v2" "private_network" {
-  name = "osic-lab"
-  region = "${var.region}"
+resource "openstack_networking_network_v2" "osic_network" {
+  name = "osic-network-lab"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "private_subnet01" {
-  name = "devstack-lab"
-  region = "${var.region}"
-  network_id = "${openstack_networking_network_v2.private_network.id}"
-  cidr = "192.168.50.0/24"
+resource "openstack_networking_subnet_v2" "devstack_subnet" {
+  name = "osic-devstack-subnet"
+  network_id = "${openstack_networking_network_v2.osic_network.id}"
+  cidr = "10.0.0.0/24"
   ip_version = 4
   enable_dhcp = "true"
-  dns_nameservers = ["8.8.8.8"]
+  dns_nameservers = ["8.8.8.8", "8.8.4.4", "72.3.128.240", "72.3.128.241"]
 }
 
 resource "openstack_networking_router_v2" "router" {
-  name = "osic-lab-router"
-  region = "${var.region}"
+  name = "OSIC_SHARED_ROUTER_1"
   admin_state_up = "true"
   external_gateway = "${var.external_gateway}"
 }
 
 resource "openstack_networking_router_interface_v2" "router_interface" {
-  region = "${var.region}"
   router_id = "${openstack_networking_router_v2.router.id}"
-  subnet_id = "${openstack_networking_subnet_v2.private_subnet01.id}"
+  subnet_id = "${openstack_networking_subnet_v2.devstack_subnet.id}"
 }
 
 resource "openstack_compute_floatingip_v2" "floatingip" {
   depends_on = ["openstack_networking_router_interface_v2.router_interface"]
-  region = "${var.region}"
   pool = "${var.floating_pool}"
 }
