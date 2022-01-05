@@ -1,5 +1,4 @@
-Devstack labs
-=============
+# Devstack labs
 
 This project provisions Devstack deployments on Virtual Machines
 hosted on a specific OpenStack Cluster. Those Devstack VMs are
@@ -28,16 +27,16 @@ OS_PROJECT_DOMAIN_NAME=Default
 
 Those values depend on the OpenStack Cloud provider.
 
-## Steps for execution:
+## Steps for execution
 
 ```bash
-curl -fsSL http://bit.ly/install_pkg | PKG="terraform git" bash
-git clone https://github.com/electrocucaracha/devstack-labs.git
-cd devstack-labs
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="terraform" bash
 terraform init
 terraform apply
 ```
 
-## Destroy:
+## Destroy
 
-    terraform destroy
+```bash
+terraform destroy
+```
