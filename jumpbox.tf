@@ -1,5 +1,5 @@
 data "template_file" "jumpbox_cloudinit" {
-    template = "${file("jumpbox.tpl")}"
+    template = file("jumpbox.tpl")
 }
 
 resource "openstack_compute_secgroup_v2" "jumpbox_secgroup" {
@@ -20,16 +20,16 @@ resource "openstack_compute_secgroup_v2" "jumpbox_secgroup" {
 }
 
 resource "openstack_compute_instance_v2" "jumpbox" {
-  count = "${var.num_jumpboxs}"
+  count = var.num_jumpboxs
   name = "osic-jumpbox-${count.index + 1}"
-  image_name = "${var.image}"
-  flavor_name = "${var.flavor}"
+  image_name = var.image
+  flavor_name = var.flavor
   security_groups = [ "${openstack_compute_secgroup_v2.jumpbox_secgroup.name}" ]
-  floating_ip = "${openstack_compute_floatingip_v2.floatingip.address}"
-  user_data = "${data.template_file.jumpbox_cloudinit.rendered}"
+  floating_ip = openstack_compute_floatingip_v2.floatingip.address
+  user_data = data.template_file.jumpbox_cloudinit.rendered
 
   network {
-    uuid = "${openstack_networking_network_v2.osic_network.id}"
+    uuid = openstack_networking_network_v2.osic_network.id
   }
 
   provisioner "local-exec" {
