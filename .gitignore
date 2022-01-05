@@ -2,3 +2,6 @@
 *.tfstate.backup
 ssh_osic.sh
 openrc
+*.log
+.terraform.lock.hcl
+.terraform/

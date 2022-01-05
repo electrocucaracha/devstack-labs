@@ -1,4 +1,7 @@
 # Devstack labs
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub Super-Linter](https://github.com/electrocucaracha/devstack-labs/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=electrocucaracha.devstack-labs)
 
 This project provisions Devstack deployments on Virtual Machines
 hosted on a specific OpenStack Cluster. Those Devstack VMs are
