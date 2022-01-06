@@ -15,7 +15,7 @@ resource "openstack_networking_subnet_v2" "devstack_subnet" {
 resource "openstack_networking_router_v2" "router" {
   name = "OSIC_SHARED_ROUTER_1"
   admin_state_up = "true"
-  external_gateway = var.external_gateway
+  external_network_id = var.external_gateway
 }
 
 resource "openstack_networking_router_interface_v2" "router_interface" {
@@ -23,7 +23,6 @@ resource "openstack_networking_router_interface_v2" "router_interface" {
   subnet_id = openstack_networking_subnet_v2.devstack_subnet.id
 }
 
-resource "openstack_compute_floatingip_v2" "floatingip" {
-  depends_on = [openstack_networking_router_interface_v2.router_interface]
+resource "openstack_networking_floatingip_v2" "floatingip" {
   pool = var.floating_pool
 }

@@ -1,8 +1,7 @@
-# Configure the OpenStack Provider
-terraform {
-    required_providers {
-        openstack = {
-            source = "terraform-provider-openstack/openstack"
-        }
-    }
+module "openstack-provider" {
+  source = ".//openstack"
+}
+
+module "aws-provider" {
+  source = ".//aws"
 }

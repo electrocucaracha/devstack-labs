@@ -1,7 +1,6 @@
-# Template for devstack installation
 data "template_file" "devstack_postinstall_script" {
-  template = file("devstack.tpl")
-  vars {
+  template = file("${path.module}/../devstack.tftpl")
+  vars = {
     password = "password"
   }
 }
@@ -34,7 +33,7 @@ resource "openstack_compute_instance_v2" "devstack" {
   name = "osic-devstack-${count.index + 1}"
   image_name = var.image
   flavor_name = var.flavor
-  security_groups = [ "${openstack_compute_secgroup_v2.devstack_secgroup.name}" ]
+  security_groups = [ openstack_compute_secgroup_v2.devstack_secgroup.name ]
   user_data = data.template_file.devstack_postinstall_script.rendered
 
   network {
