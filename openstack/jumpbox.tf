@@ -27,7 +27,7 @@ resource "openstack_compute_instance_v2" "jumpbox" {
   user_data = data.template_file.jumpbox_cloudinit.rendered
 
   network {
-    uuid = openstack_networking_network_v2.osic_network.id
+    uuid = module.network_lab.network.id
   }
 
   provisioner "local-exec" {
