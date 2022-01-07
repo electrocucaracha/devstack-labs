@@ -15,22 +15,28 @@ environment variables like the following:
 
 Those values depend on the OpenStack Cloud provider.
 
-### Pre-deployment instructions
+### Requirements
 
 ```bash
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="terraform" bash
 terraform init
 ```
 
-### OpenStack deployment instructions
+### OpenStack deployment
 
 ```bash
 source defaults.env
-terraform apply -target module.openstack-provider
+terraform apply -target module.openstack-provider -auto-approve
+```
+
+### AWS deployment
+
+```bash
+terraform apply -target module.aws-provider -auto-approve
 ```
 
 ## Destroy
 
 ```bash
-terraform destroy
+terraform destroy -auto-approve
 ```
