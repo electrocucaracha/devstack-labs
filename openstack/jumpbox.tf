@@ -1,30 +1,30 @@
 data "template_file" "jumpbox_cloudinit" {
-    template = file("${path.module}/../jumpbox.tftpl")
+  template = file("${path.module}/../jumpbox.tftpl")
 }
 
 resource "openstack_compute_secgroup_v2" "jumpbox_secgroup" {
-  name = "osic-lab-jumpbox"
+  name        = "osic-lab-jumpbox"
   description = "Security group for accessing jumpbox from outside"
   rule {
-    from_port = 22
-    to_port = 22
+    from_port   = 22
+    to_port     = 22
     ip_protocol = "tcp"
-    cidr = "0.0.0.0/0"
+    cidr        = "0.0.0.0/0"
   }
   rule {
-    from_port = 80
-    to_port = 8080
+    from_port   = 80
+    to_port     = 8080
     ip_protocol = "tcp"
-    cidr = "0.0.0.0/0"
+    cidr        = "0.0.0.0/0"
   }
 }
 
 resource "openstack_compute_instance_v2" "jumpbox" {
-  name = "osic-jumpbox"
-  image_name = var.image
-  flavor_name = var.flavor
+  name            = "osic-jumpbox"
+  image_name      = var.image
+  flavor_name     = var.flavor
   security_groups = [openstack_compute_secgroup_v2.jumpbox_secgroup.name]
-  user_data = data.template_file.jumpbox_cloudinit.rendered
+  user_data       = data.template_file.jumpbox_cloudinit.rendered
 
   network {
     uuid = module.network_lab.network.id
