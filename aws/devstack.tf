@@ -34,4 +34,12 @@ module "devstack_instance" {
   subnet_id                   = element(module.network_lab.private_subnets, 0)
   user_data_base64            = base64encode(data.template_file.devstack_cloudinit.rendered)
 
+  root_block_device = [
+    {
+      encrypted   = true
+      volume_type = "gp3"
+      volume_size = 50
+    },
+  ]
+
 }
