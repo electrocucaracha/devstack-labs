@@ -26,6 +26,7 @@ module "devstack_instance" {
 
   name                        = "osic-devstack-${each.key}"
   key_name                    = aws_key_pair.key_pair.id
+  monitoring                  = true
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = "t2.xlarge"
   vpc_security_group_ids      = [module.devstack_security_group.security_group_id]

@@ -21,6 +21,7 @@ module "jumpbox_instance" {
 
   name                   = "osic-jumpbox"
   key_name               = aws_key_pair.key_pair.id
+  monitoring             = true
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   vpc_security_group_ids = [module.jumpbox_security_group.security_group_id]
