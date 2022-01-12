@@ -28,6 +28,11 @@ module "jumpbox_instance" {
   subnet_id              = element(module.network_lab.public_subnets, 0)
   user_data_base64       = base64encode(data.template_file.jumpbox_cloudinit.rendered)
 
+  metadata_options = {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+
   root_block_device = [
     {
       encrypted   = true
