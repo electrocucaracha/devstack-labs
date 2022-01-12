@@ -4,39 +4,31 @@
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=electrocucaracha.devstack-labs)
 
 This project provisions Devstack deployments on Virtual Machines
-hosted on a specific OpenStack Cluster. Those Devstack VMs are
+hosted on a specific OpenStack Cluster or AWS provider. Those Devstack VMs are
 reachable via jumpbox.
 
-## General OpenStack settings
+## OpenStack deployment
 
-Terraform OpenStack provider requires environment variables to be set
-before you can run the scripts. In general, you can simply export OS
-environment variables like the following:
-
-Those values depend on the OpenStack Cloud provider.
-
-### Requirements
+Terraform OpenStack provider requires `OS_*` environment variables to be set
+before you can run the scripts. Those values depend on the OpenStack Cloud
+provider.
 
 ```bash
 curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="terraform" bash
-terraform init
-```
-
-### OpenStack deployment
-
-```bash
 source defaults.env
+terraform init
 terraform apply -target module.openstack-provider -auto-approve
 ```
 
-### AWS deployment
+## AWS deployment
+
+Terraform AWS provider requires access keys for CLI, those can be generated from
+`My security credentials` [web console](https://console.aws.amazon.com/iam/home#/security_credentials)
+and passing them to the AWS client during the configuration step.
 
 ```bash
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="terraform,aws" bash
+aws configure
+terraform init
 terraform apply -target module.aws-provider -auto-approve
-```
-
-## Destroy
-
-```bash
-terraform destroy -auto-approve
 ```
