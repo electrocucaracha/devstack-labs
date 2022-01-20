@@ -1,7 +1,3 @@
-data "template_file" "jumpbox_cloudinit" {
-  template = file("${path.module}/../jumpbox.tftpl")
-}
-
 resource "openstack_compute_secgroup_v2" "jumpbox_secgroup" {
   name        = "osic-lab-jumpbox"
   description = "Security group for accessing jumpbox from outside"
@@ -24,7 +20,7 @@ resource "openstack_compute_instance_v2" "jumpbox" {
   image_name      = var.image
   flavor_name     = var.flavor
   security_groups = [openstack_compute_secgroup_v2.jumpbox_secgroup.name]
-  user_data       = data.template_file.jumpbox_cloudinit.rendered
+  user_data       = file("${path.module}/../scripts/jumpbox.yml")
 
   network {
     uuid = module.network_lab.network.id

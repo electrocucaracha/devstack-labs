@@ -1,7 +1,3 @@
-data "template_file" "jumpbox_cloudinit" {
-  template = file("${path.module}/../jumpbox.tftpl")
-}
-
 module "jumpbox_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
@@ -26,7 +22,7 @@ module "jumpbox_instance" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [module.jumpbox_security_group.security_group_id]
   subnet_id              = element(module.network_lab.public_subnets, 0)
-  user_data_base64       = base64encode(data.template_file.jumpbox_cloudinit.rendered)
+  user_data              = file("${path.module}/../scripts/jumpbox.yml")
 
   metadata_options = {
     http_endpoint = "enabled"

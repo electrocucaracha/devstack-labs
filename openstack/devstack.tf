@@ -1,5 +1,5 @@
 data "template_file" "devstack_postinstall_script" {
-  template = file("${path.module}/../devstack.tftpl")
+  template = file("${path.module}/../templates/devstack.tpl")
   vars = {
     password = "password"
   }

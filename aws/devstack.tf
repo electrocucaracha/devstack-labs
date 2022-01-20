@@ -1,5 +1,5 @@
 data "template_file" "devstack_cloudinit" {
-  template = file("${path.module}/../devstack.tftpl")
+  template = file("${path.module}/../templates/devstack.tpl")
   vars = {
     password = "password"
   }
