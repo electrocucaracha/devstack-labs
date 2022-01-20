@@ -1,19 +1,24 @@
 variable "image" {
-  default = "ubuntu-14.04-cloud"
+  description = "Jumpbox and Devstack OS image"
+  default     = "ubuntu-14.04-cloud"
 }
 
 variable "flavor" {
-  default = "m2.large"
+  description = "Devstack instance flavor type"
+  default     = "m2.large"
 }
 
 variable "external_gateway" {
-  default = "7004a83a-13d3-4dcd-8cf5-52af1ace4cae"
+  description = "Gateway ID for connecting to external network"
+  default     = "7004a83a-13d3-4dcd-8cf5-52af1ace4cae"
 }
 
 variable "floating_pool" {
-  default = "GATEWAY_NET"
+  description = "Name of the pool for floating IP addresses"
+  default     = "GATEWAY_NET"
 }
 
 variable "num_devstacks" {
-  default = 5
+  description = "Number of Devstack instances to be created"
+  default     = 5
 }
