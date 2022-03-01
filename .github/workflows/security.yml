@@ -28,7 +28,7 @@ jobs:
       matrix:
         provider: [openstack, aws]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Run Checkov action
         uses: bridgecrewio/checkov-action@master
         with:
