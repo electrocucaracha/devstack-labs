@@ -1,9 +1,12 @@
 terraform {
   required_providers {
+    template = "~> 2.0"
     openstack = {
-      source = "terraform-provider-openstack/openstack"
+      source  = "terraform-provider-openstack/openstack"
+      version = "~> 1.51.1"
     }
   }
+  required_version = ">=1.51"
 }
 
 data "template_file" "devstack_postinstall_script" {

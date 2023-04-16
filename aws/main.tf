@@ -1,9 +1,12 @@
 terraform {
   required_providers {
+    template = "~> 2.0"
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
+      version = "~> 4.63"
     }
   }
+  required_version = ">=4.62"
 }
 
 # Configure the AWS Provider
