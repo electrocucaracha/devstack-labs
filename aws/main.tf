@@ -134,7 +134,7 @@ module "jumpbox_instance" {
 
 module "network_lab" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   name = "osic-network-lab"
   cidr = "10.0.0.0/16"
