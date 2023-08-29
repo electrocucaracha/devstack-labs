@@ -34,3 +34,11 @@ aws configure
 terraform init
 terraform apply -target module.aws-provider -auto-approve
 ```
+
+## Libvirt deployment
+
+```bash
+curl -fsSL http://bit.ly/install_pkg | PKG_COMMANDS_LIST="terraform,libvirt,genisoimage" bash
+terraform init
+terraform apply -target module.libvirt-provider -auto-approve
+```

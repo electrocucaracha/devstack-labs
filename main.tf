@@ -5,3 +5,7 @@ module "openstack-provider" {
 module "aws-provider" {
   source = ".//aws"
 }
+
+module "libvirt-provider" {
+  source = ".//libvirt"
+}
