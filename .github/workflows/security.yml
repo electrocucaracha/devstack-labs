@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.1
       - name: Run Checkov action
-        uses: bridgecrewio/checkov-action@v12.2479.0
+        uses: bridgecrewio/checkov-action@v12.2607.0
         with:
           directory: ./${{ matrix.provider }}
           quiet: true
