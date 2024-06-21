@@ -29,6 +29,8 @@ jobs:
                 commit_hash=$(git ls-remote --tags "https://github.com/$action" | grep 'refs/tags/v[0-9][0-9\.]*$' | awk '{ print $NF,$0 }' | sort -k1,1 -V | cut -f2- -d' ' | grep -oh '.*refs/tags/[v0-9\.]*$' | tail -1 | awk '{ printf "%s # %s\n",$1,$2 }')
                 grep -ElRZ "uses: $action@" .github/workflows/ | xargs -0 -l sed -i -e "s|uses: $action@.*|uses: $action@$commit_hash|g"
             done
+            pip install pip-tools
+            pip-compile test-requirements.in --output-file test-requirements.txt --upgrade --resolver=backtracking
           COMMIT_MESSAGE: 'Upgrade galaxy requirements and devstack-labs versions files'
           COMMIT_NAME: 'electrocucaracha bot'
           PR_BRANCH_NAME: "versions-update-${PR_ID}"

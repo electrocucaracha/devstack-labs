@@ -5,3 +5,4 @@ openrc
 *.log
 .terraform.lock.hcl
 .terraform/
+plan.out
