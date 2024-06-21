@@ -28,9 +28,9 @@ jobs:
       matrix:
         provider: [openstack, aws]
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # refs/tags/v4.1.7
       - name: Run Checkov action
-        uses: bridgecrewio/checkov-action@v12.2479.0
+        uses: bridgecrewio/checkov-action@d3328add8f0c9461fb3fe0739296f1cee85f7c2b # refs/tags/v12.2785.0
         with:
           directory: ./${{ matrix.provider }}
           quiet: true
