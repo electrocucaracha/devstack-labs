@@ -3,7 +3,7 @@ terraform {
     template = "~> 2.0"
     openstack = {
       source  = "terraform-provider-openstack/openstack"
-      version = "~> 1.52.1"
+      version = "~> 2.0.0"
     }
   }
 }

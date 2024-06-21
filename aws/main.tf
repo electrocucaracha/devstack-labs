@@ -3,7 +3,7 @@ terraform {
     template = "~> 2.0"
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.14.0"
+      version = "~> 5.55.0"
     }
   }
 }
@@ -49,7 +49,7 @@ resource "aws_key_pair" "key_pair" {
 
 module "devstack_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
+  version = "~> 5.1.2"
 
   name        = "osic-lab-devstack"
   description = "Security group for accessing devstack VMs from jumpbox"
@@ -62,7 +62,7 @@ module "devstack_security_group" {
 
 module "devstack_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 3.0"
+  version = "~> 5.6.1"
 
   for_each = toset([for s in range(var.num_devstacks) : format("%q", s)])
 
@@ -93,7 +93,7 @@ module "devstack_instance" {
 
 module "jumpbox_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
+  version = "~> 5.1.2"
 
   name        = "osic-lab-jumpbox"
   description = "Security group for accessing jumpbox from outside"
@@ -106,7 +106,7 @@ module "jumpbox_security_group" {
 
 module "jumpbox_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 3.0"
+  version = "~> 5.6.1"
 
   name                   = "osic-jumpbox"
   key_name               = aws_key_pair.key_pair.id
@@ -134,7 +134,7 @@ module "jumpbox_instance" {
 
 module "network_lab" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.0"
+  version = "~> 5.8.1"
 
   name = "osic-network-lab"
   cidr = "10.0.0.0/16"

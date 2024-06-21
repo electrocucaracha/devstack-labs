@@ -3,7 +3,7 @@ terraform {
     template = "~> 2.0"
     libvirt = {
       source  = "dmacvicar/libvirt"
-      version = "~> 0.7.1"
+      version = "~> 0.7.6"
     }
   }
 }
